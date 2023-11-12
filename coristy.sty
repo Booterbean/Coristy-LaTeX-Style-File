@@ -1,0 +1,215 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{coristy}[2023/11/09 Coristy Style Package]
+
+% Required packages
+\RequirePackage{tcolorbox}
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{fancyhdr}
+\RequirePackage{geometry}
+\RequirePackage{mathtools}
+\RequirePackage{fontspec}
+\RequirePackage{fontawesome}
+\RequirePackage{hyperref}
+\RequirePackage{listings}
+
+
+\renewcommand{\author}[1]{\@breakauthor#1\@breakauthor}
+\def\@breakauthor#1 #2\@breakauthor{%
+  \gdef\@author{\faPuzzlePiece\space#1 \textsc{#2}}%
+}
+
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{lemcolor},
+    keywordstyle=\color{theocolor},
+    numberstyle=\tiny\color{corocolor},
+    stringstyle=\color{lemcolor},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\out}[1]{\
+\newline
+	\setmainfont{Hack}\faChevronLeft\faChevronLeft\space \color{lemcolor} Terminal \color{black} \faChevronRight\faChevronRight\quad \setmainfont{Optima} #1
+\newline
+}
+
+\newcommand{\note}[1]{
+\begin{center}
+	\faSmileO\space-\space#1
+\end{center}
+}
+
+\newcommand{\code}[1]{\quad\setmainfont{Hack}#1\setmainfont{Optima}\quad}
+
+
+
+% Set small margins
+\geometry{margin=2.5cm}
+
+% Define colors
+\definecolor{theocolor}{HTML}{4a3295}
+\definecolor{corocolor}{HTML}{FF6D60}
+\definecolor{lemcolor}{RGB}{144, 0, 0}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Define theorem font command
+\newfontfamily\theoremfont{Hack}
+
+% Define lemma font command
+\newfontfamily\lemmafont{Hack}
+
+% Define theorem command
+\newcommand{\theo}[2]{%
+    \begin{tcolorbox}[colback=theocolor!5,colframe=theocolor, title=\theoremfont   Theorem: #1 \faPencilSquareO]
+     #2
+    \end{tcolorbox}
+}
+
+% Define lemma command
+\newcommand{\lem}[2]{%
+    \begin{tcolorbox}[colback=lemcolor!5,colframe=lemcolor,title=\lemmafont Lemma: #1 \faPencilSquareO]
+    #2
+    \end{tcolorbox}
+}
+
+
+
+
+\newtheorem{definition}{\faCubes\space\impa{Definition}}
+\newcommand{\defn}[1]{
+\begin{definition}
+	#1	
+\end{definition}
+}
+
+\newtheorem{problem}{\space\impa{Problem}}
+\newcommand{\prob}[2]{
+
+\begin{problem}
+	(#1)\space #2	
+\end{problem}
+}
+
+
+\newtheorem{remark}{\faCubes\space\impb{Remark}}
+\newcommand{\rem}[1]{
+\begin{remark}
+	#1	
+\end{remark}
+}
+
+\newcommand{\impa}[1]{\textbf{\color{theocolor}#1}}
+\newcommand{\impb}[1]{\textbf{\color{lemcolor}#1}}
+
+% Set default document fonts
+\setmainfont{Optima}
+
+\fancypagestyle{firststyle}
+{
+\pagestyle{fancy}
+\fancyhfoffset[L]{1cm} % left extra length
+\fancyhfoffset[R]{1cm} % right extra length
+\rhead{\faEnvelopeO\space Email: \href{mailto:cpredell@andrew.cmu.edu}{cpredell@andrew.cmu.edu}}
+\lhead{\faSitemap \space Website: \href{https://coreypredella.com}{coreypredella.com}}
+
+\rfoot{\today}
+\lfoot{\faGithub\quad\href{https://github.com/Booterbean}{Github}}
+}
+
+\newcommand{\onestar}{\faStarHalfO\faStarO\faStarO}
+\newcommand{\twostar}{\faStar\faStarO\faStarO}
+\newcommand{\threestar}{\faStar\faStarHalfO\faStarO}
+\newcommand{\fourstar}{\faStar\faStar\faStarO}
+\newcommand{\fivestar}{\faStar\faStar\faStarHalfO}
+\newcommand{\sixstar}{\faStar\faStar\faStar}
+
+
+\newcommand{\plotgraph}[7]{
+  \begin{center}
+  \begin{tikzpicture}
+    \draw[step=1cm,gray!50,very thin] (#2,#4) grid (#3,#5);
+    \foreach \x in {#2,...,#3} {
+      \ifnum \x=0
+      \else
+        \draw (\x,0) node[below, fill=white] {\x};
+      \fi
+    }
+    \foreach \y in {#4,...,#5} {
+      \ifnum \y=0
+      \else
+        \draw (0,\y) node[left, fill=white] {\y};
+      \fi
+    }
+    \draw[->] (#2,0) -- (#3,0) node[right] {$x$};
+    \draw[->] (0,#4) -- (0,#5) node[above] {$y$};
+    \draw[domain=#6:#7,smooth,variable=\x,blue] plot ({\x},{#1});
+  \end{tikzpicture}
+  \end{center}
+}
+
+
+
+%ALGEBRA
+
+\newcommand{\f}[2]{\frac{#1}{#2}} %fractions
+\newcommand{\s}[3]{\sum_{#1}^{#2}{#3}} %sums
+\newcommand{\pr}[3]{\prod_{#1}^{#2}{#3}} %products
+\newcommand{\p}[1]{\left(#1\right)} %paranthesis
+\newcommand{\lo}[2]{\log_{#1}{#2}} %logarithms
+\newcommand{\isin}[1]{\sin^{-1}\left(#1\right)} %inv trig
+\newcommand{\icos}[1]{\cos^{-1}\left(#1\right)}
+\newcommand{\itan}[1]{\tan^{-1}\left(#1\right)}
+\newcommand{\icsc}[1]{\csc^{-1}\left(#1\right)}
+\newcommand{\isec}[1]{\sec^{-1}\left(#1\right)}
+\newcommand{\icot}[1]{\cot^{-1}\left(#1\right)}
+\newcommand{\row}[1]{\text{Row}\left(#1\right)}
+\newcommand{\col}[1]{\text{Col}\left(#1\right)}
+\newcommand{\rank}[1]{\text{Rank}\left(#1\right)}
+\newcommand{\range}[1]{\text{Range}\left(#1\right)}
+\newcommand{\rref}{\xrightarrow{RREF}}
+\newcommand{\trace}[1]{\ensuremath{\text{Tr}\left(#1\right)}}
+\newcommand{\id}[1]{\ensuremath{\mathbf{I}_{#1}}}
+\newcommand{\tran}[1]{\ensuremath{#1^{\top}}}
+\newcommand{\inv}[1]{\ensuremath{#1^{-1}}}
+\newcommand{\innerp}[2]{\ensuremath{\left\langle #1, #2 \right\rangle}}
+\newcommand{\proj}[2]{\text{proj}_{#1}#2}
+\newcommand{\comp}[2]{\text{comp}_{#1}#2}
+\newcommand{\dis}[1]{\|#1\|}
+\newcommand{\cm}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\sm}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}[2]{\mathcal{P}_{#1}({#2})}
+
+%ANALYSIS
+
+\newcommand{\igr}[4]{\int_{#1}^{#2}#3 #4}
+\newcommand{\li}[2]{\lim_{#1 \to #2}} % limit
+\newcommand{\der}[2]{\frac{d#1}{d#2}} % derivative
+\newcommand{\pder}[2]{\frac{\partial#1}{\partial#2}} % partial derivative
+\newcommand{\nder}[3]{\frac{d^{#1}#2}{d#3^{#1}}} % nth derivative
+\newcommand{\npder}[3]{\frac{\partial^{#1}#2}{\partial#3^{#1}}} % nth partial derivative
+
+
+
+\endinput
