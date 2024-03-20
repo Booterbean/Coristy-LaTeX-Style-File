@@ -3,7 +3,6 @@
 
 % Required packages
 \RequirePackage{tcolorbox}
-\RequirePackage{xcolor}
 \RequirePackage{tikz}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
@@ -16,12 +15,41 @@
 \RequirePackage{fontawesome}
 \RequirePackage{hyperref}
 \RequirePackage{listings}
+\RequirePackage{xcolor}
+\RequirePackage{colortbl}
+\RequirePackage{titlesec}
+\RequirePackage[framemethod=TikZ]{mdframed}
+
+\newtheoremstyle{defstyle}
+{\topsep} % Space above
+{\topsep} % Space below
+{} % Body font
+{} % Indent amount
+{\bfseries} % Theorem head font
+{.} % Punctuation after theorem head
+{1.5em} % Space after theorem head
+{} % Theorem head spec (can be left empty, meaning `normal')
+
+\newtheoremstyle{solstyle}
+{\topsep} % Space above
+{\topsep} % Space below
+{} % Body font
+{30pt} % Indent amount
+{\bfseries} % Theorem head font
+{.} % Punctuation after theorem head
+{1.5em} % Space after theorem head
+{} % Theorem head spec (can be left empty, meaning `normal')
+
+\theoremstyle{defstyle}
 
 
 \renewcommand{\author}[1]{\@breakauthor#1\@breakauthor}
 \def\@breakauthor#1 #2\@breakauthor{%
-  \gdef\@author{\faPuzzlePiece\space#1 \textsc{#2}}%
+  \gdef\@author{\color{olive}\faPuzzlePiece\space#1 \textsc{#2}}%
 }
+
+\titleformat*{\section}{\Large\bfseries\sffamily\color{cyan}}
+\renewcommand\thesection{\color{red}$\diamondsuit$\arabic{section}}
 
 
 \lstdefinestyle{mystyle}{
@@ -65,10 +93,20 @@
 \geometry{margin=2.5cm}
 
 % Define colors
-\definecolor{theocolor}{HTML}{4a3295}
-\definecolor{corocolor}{HTML}{FF6D60}
-\definecolor{lemcolor}{RGB}{144, 0, 0}
+\definecolor{theocolor}{HTML}{0000FF}
+\definecolor{solcolor}{HTML}{fc0384}
+\definecolor{remcolor}{HTML}{fc8c03}
+\definecolor{titlecolor}{RGB}{246, 145, 255}
+\definecolor{probcolor}{HTML}{640096}
+\definecolor{corocolor}{HTML}{ED1B23}
+\definecolor{excolor}{HTML}{00CC00}
+\definecolor{lemcolor}{HTML}{FAD20A}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{pastelRed}{rgb}{1, 0.5, 0.5}
+\definecolor{pastelGreen}{rgb}{0.5, 1, 0.5}
+\definecolor{pastelBlue}{rgb}{0.5, 0.5, 1}
+\definecolor{pastelYellow}{rgb}{0.98, 0.98, 0.5}
+\definecolor{pastelPurple}{rgb}{0.98, 0.5, 0.98}
 
 % Define theorem font command
 \newfontfamily\theoremfont{Hack}
@@ -78,29 +116,80 @@
 
 % Define theorem command
 \newcommand{\theo}[2]{%
-    \begin{tcolorbox}[colback=theocolor!5,colframe=theocolor, title=\theoremfont   Theorem: #1 \faPencilSquareO]
+    \begin{tcolorbox}[colback=theocolor!5,colframe=theocolor, title=\bfseries\sffamily   Theorem: #1 \faPencilSquareO]
+     #2
+    \end{tcolorbox}
+}
+
+
+
+\newcommand{\coro}[2]{%
+    \begin{tcolorbox}[colback=corocolor!5,colframe=corocolor, title=\bfseries\sffamily   Corollary: #1 \faPencilSquareO]
      #2
     \end{tcolorbox}
 }
 
 % Define lemma command
 \newcommand{\lem}[2]{%
-    \begin{tcolorbox}[colback=lemcolor!5,colframe=lemcolor,title=\lemmafont Lemma: #1 \faPencilSquareO]
+    \begin{tcolorbox}[colback=lemcolor!5,colframe=lemcolor,title=\bfseries\sffamily Lemma: #1 \faPencilSquareO]
     #2
     \end{tcolorbox}
 }
 
+\newcommand{\progress}[4]{
+\begin{center}
+Fish Caught on \today
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\cellcolor{pastelGreen}\textbf{Shrimp} & \cellcolor{pastelBlue}\textbf{Sharks} & 
+	\cellcolor{pastelRed}\textbf{Whales} & 
+	\cellcolor{pastelPurple}\textbf{Goliath}\\ \hline
+\cellcolor{pastelYellow} #1 & \cellcolor{pastelYellow} #2  & 
+	\cellcolor{pastelYellow} #3 & 
+	\cellcolor{pastelYellow} #4 \\ \hline
+\end{tabular}
+\caption{A table with pastel red headings and yellow entries}
+\end{table}
+\end{center}
+}
 
 
+\definecolor{darkgreen}{RGB}{0,100,0}
 
-\newtheorem{definition}{\faCubes\space\impa{Definition}}
+
+\newmdtheoremenv[
+    linewidth=1pt,     
+    leftmargin=10pt,
+    rightmargin=10pt,
+    backgroundcolor=green!5,
+    linecolor=darkgreen, 
+    innertopmargin=0pt,
+    innerbottommargin=6pt,
+    splittopskip=\topskip,
+    skipbelow=\baselineskip,
+    skipabove=\baselineskip,
+    ntheorem = true]{example}{\faEdit\space\impg{Example}}
+
+\newcommand{\ex}[1]{%
+    \begin{example}%
+       \normalfont #1%
+    \end{example}%
+}
+
+
+\theoremstyle{defstyle}
+\newtheorem*{definition}{\faCubes\space Definition}
 \newcommand{\defn}[1]{
 \begin{definition}
-	#1	
+	#1
 \end{definition}
 }
 
-\newtheorem{problem}{\space\impa{Problem}}
+
+
+\newtheorem*{problem}{\faBook\space\impp{Problem}}
 \newcommand{\prob}[2]{
 
 \begin{problem}
@@ -109,30 +198,49 @@
 }
 
 
-\newtheorem{remark}{\faCubes\space\impb{Remark}}
+\theoremstyle{solstyle}
+\newtheorem*{solution}{\faLightbulbO\space \imps{Solution}}
+\newcommand{\sol}[1]{
+
+\begin{solution}
+	#1
+\end{solution}
+}
+
+
+
+\theoremstyle{defstyle}
+\newtheorem*{remark}{\faHandPointerO\space\impr{Remark}}
 \newcommand{\rem}[1]{
 \begin{remark}
 	#1	
 \end{remark}
 }
 
-\newcommand{\impa}[1]{\textbf{\color{theocolor}#1}}
-\newcommand{\impb}[1]{\textbf{\color{lemcolor}#1}}
-
+\newcommand{\impa}[1]{\textbf{\color{excolor}#1}}
+\newcommand{\impg}[1]{\textbf{\color{excolor}#1}}
+\newcommand{\impb}[1]{\textbf{\color{corocolor}#1}}
+\newcommand{\impp}[1]{\textbf{\color{probcolor}#1}}
+\newcommand{\impr}[1]{\textbf{\color{remcolor}#1}}
+\newcommand{\imps}[1]{\textbf{\color{solcolor}#1}}
 % Set default document fonts
-\setmainfont{Optima}
+%\setmainfont{Optima}
 
-\fancypagestyle{firststyle}
-{
-\pagestyle{fancy}
-\fancyhfoffset[L]{1cm} % left extra length
-\fancyhfoffset[R]{1cm} % right extra length
-\rhead{\faEnvelopeO\space Email: \href{mailto:cpredell@andrew.cmu.edu}{cpredell@andrew.cmu.edu}}
-\lhead{\faSitemap \space Website: \href{https://coreypredella.com}{coreypredella.com}}
-
-\rfoot{\today}
-\lfoot{\faGithub\quad\href{https://github.com/Booterbean}{Github}}
+\fancypagestyle{firststyle}{
+    \fancyhf{} % Clear all headers and footers first
+    % Set your custom headers and footers
+    \fancyhead[R]{\theoremfont\faEnvelopeO\space Email: \impb{\href{mailto:cpredell@andrew.cmu.edu}{cpredell@andrew.cmu.edu}}}
+    \fancyhead[L]{\theoremfont\faSitemap \space Website: \impb{\href{https://coreypredella.com}{coreypredella.com}}}
+    \fancyfoot[R]{\bfseries\sffamily\today}
+    \fancyfoot[L]{\theoremfont\faGithub\quad\impb{\href{https://github.com/Booterbean}{Github}}}
+    \fancyhfoffset[L]{1cm} % Left extra length
+    \fancyhfoffset[R]{1cm} % Right extra length
+    % Optional: Set a line below the header or above the footer
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
 }
+% Apply the custom style to all pages
+\pagestyle{firststyle}
 
 \newcommand{\onestar}{\faStarHalfO\faStarO\faStarO}
 \newcommand{\twostar}{\faStar\faStarO\faStarO}
@@ -199,6 +307,7 @@
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\PP}[2]{\mathcal{P}_{#1}({#2})}
 
 %ANALYSIS
