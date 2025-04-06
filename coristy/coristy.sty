@@ -1,0 +1,417 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{coristy}[2023/11/09 Coristy Style Package]
+
+
+\RequirePackage{fontspec}
+\RequirePackage{fontawesome}
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{mathtools}
+\RequirePackage{marginnote}
+\RequirePackage{colortbl}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{tikz}
+\RequirePackage[many]{tcolorbox}
+\usetikzlibrary{calc}
+\RequirePackage{polynom}
+\RequirePackage[framemethod=TikZ]{mdframed}
+\RequirePackage{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{titlesec}
+\RequirePackage{pgfplots}
+\RequirePackage{listings}
+\RequirePackage{hyperref}
+\RequirePackage{listings,lstautogobble}
+\RequirePackage[normalem]{ulem}
+\RequirePackage{xstring}
+
+\setlength{\marginparwidth}{1.75cm}
+
+\newtheoremstyle{defstyle}
+{\topsep} % Space above
+{\topsep} % Space below
+{} % Body font
+{} % Indent amount
+{\bfseries} % Theorem head font
+{.} % Punctuation after theorem head
+{1.5em} % Space after theorem head
+{} % Theorem head spec (can be left empty, meaning `normal')
+
+\newtheoremstyle{solstyle}
+{\topsep} % Space above
+{\topsep} % Space below
+{} % Body font
+{30pt} % Indent amount
+{\bfseries} % Theorem head font
+{.} % Punctuation after theorem head
+{1.5em} % Space after theorem head
+{} % Theorem head spec (can be left empty, meaning `normal')
+
+\theoremstyle{defstyle}
+
+
+\renewcommand{\author}[1]{\@breakauthor#1\@breakauthor}
+\def\@breakauthor#1 #2\@breakauthor{%
+  \gdef\@author{\color{Violet}\faPuzzlePiece\space#1 \textsc{#2}}%
+}
+
+\titleformat*{\section}{\Large\bfseries\sffamily\color{Plum}}
+\renewcommand\thesection{\color{red}\faCubes\space\arabic{section}}
+
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{lemcolor},
+    keywordstyle=\color{theocolor},
+    numberstyle=\tiny\color{corocolor},
+    stringstyle=\color{lemcolor},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+\newcommand{\note}[1]{
+\begin{center}
+  \faSmileO\space-\space#1
+\end{center}
+}
+
+\newcommand{\marg}[1]{
+  \marginpar{#1}
+}
+
+
+
+% Set small margins
+\geometry{margin=2.5cm}
+
+% Define colors
+\definecolor{theocolor}{HTML}{0000FF}
+\definecolor{solcolor}{HTML}{fc0384}
+\definecolor{claimcolor}{HTML}{00cf98}
+\definecolor{remcolor}{HTML}{fc8c03}
+\definecolor{titlecolor}{RGB}{246, 145, 255}
+\definecolor{probcolor}{HTML}{640096}
+\definecolor{corocolor}{HTML}{ED1B23}
+\definecolor{excolor}{HTML}{00CC00}
+\definecolor{lemcolor}{HTML}{FAD20A}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{pastelRed}{rgb}{1, 0.5, 0.5}
+\definecolor{pastelGreen}{rgb}{0.5, 1, 0.5}
+\definecolor{pastelBlue}{rgb}{0.5, 0.5, 1}
+\definecolor{pastelYellow}{rgb}{0.98, 0.98, 0.5}
+\definecolor{pastelPurple}{rgb}{0.98, 0.5, 0.98}
+
+
+\newfontfamily\titlefont{ATTFShinGoProHeavy.ttf}
+\newfontfamily\bubble{goldage.ttf}
+
+\newcommand{\theo}[2]{%
+    \begin{tcolorbox}[colback=theocolor!5,colframe=theocolor, title=\bfseries\sffamily   Theorem: #1 \faPencilSquareO]
+     #2
+    \end{tcolorbox}
+}
+
+\newcommand{\coro}[2]{%
+    \begin{tcolorbox}[colback=corocolor!5,colframe=corocolor, title=\bfseries\sffamily   Corollary: #1 \faPencilSquareO]
+     #2
+    \end{tcolorbox}
+}
+
+\newcommand{\lem}[2]{%
+    \begin{tcolorbox}[colback=lemcolor!5,colframe=lemcolor,title=\bfseries\sffamily Lemma: #1 \faPencilSquareO]
+    #2
+    \end{tcolorbox}
+}
+
+\definecolor{darkgreen}{RGB}{0,100,0}
+
+\newmdtheoremenv[
+    linewidth=1pt,     
+    leftmargin=10pt,
+    rightmargin=10pt,
+    backgroundcolor=green!5,
+    linecolor=darkgreen, 
+    innertopmargin=0pt,
+    innerbottommargin=6pt,
+    splittopskip=\topskip,
+    skipbelow=\baselineskip,
+    skipabove=\baselineskip,
+    ntheorem = true]{example}{\faEdit\space\impg{Example}}
+
+\newcommand{\ex}[1]{%
+    \begin{example}%
+       \normalfont #1%
+    \end{example}%
+}
+
+\theoremstyle{defstyle}
+\newtheorem*{definition}{\faCubes\space Definition}
+\newcommand{\defn}[1]{
+\begin{definition}
+  #1
+\end{definition}
+}
+
+\newtheorem*{problem}{\faBook\space\impp{Problem}}
+\newcommand{\prob}[2]{
+
+\begin{problem}
+  (#1)\space #2 
+\end{problem}
+}
+
+\theoremstyle{solstyle}
+\newtheorem*{solution}{\faLightbulbO\space \imps{Solution}}
+\newcommand{\sol}[1]{
+
+\begin{solution}
+  #1
+\end{solution}
+}
+
+\theoremstyle{defstyle}
+\newtheorem*{remark}{\faHandPointerO\space\impr{Remark}}
+\newcommand{\rem}[1]{
+\begin{remark}
+  #1  
+\end{remark}
+}
+
+\theoremstyle{defstyle}
+\newtheorem*{claim}{\faChild\space\impc{Claim}}
+\newcommand{\cla}[1]{
+\begin{cla}
+  #1  
+\end{cla}
+}
+
+\newcommand{\impa}[1]{\gr{#1}{blue}{red}}
+\newcommand{\impg}[1]{\gr{#1}{OliveGreen}{ForestGreen}}
+\newcommand{\impb}[1]{\textbf{\color{corocolor}#1}}
+\newcommand{\impp}[1]{\gr{#1}{Plum}{Periwinkle}}
+\newcommand{\impr}[1]{\gr{#1}{orange}{red}}
+\newcommand{\imps}[1]{\gr{#1}{WildStrawberry}{Magenta}}
+\newcommand{\impc}[1]{\gr{#1}{BlueViolet}{Cyan}}
+
+\fancypagestyle{firststyle}{
+    \fancyhf{} 
+    \fancyhead[R]{\bfseries\sffamily\faEnvelopeO\space Email: \impb{\href{mailto:cpredell@andrew.cmu.edu}{cpredell@andrew.cmu.edu}}}
+    \fancyhead[L]{\bfseries\sffamily \impb{\href{https://coreypredella.com}{\faSitemap}}}
+    \fancyfoot[C]{\thepage}
+    \fancyfoot[R]{\faCalendar\space\bfseries\sffamily\today}
+    \fancyfoot[L]{\bfseries\sffamily\faGithub\quad\impb{\href{https://github.com/Booterbean}{Github}}}
+    \fancyhfoffset[L]{1cm}
+    \fancyhfoffset[R]{1cm} 
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\pagestyle{firststyle}
+
+\newcommand{\onestar}{\faStarHalfO\faStarO\faStarO}
+\newcommand{\twostar}{\faStar\faStarO\faStarO}
+\newcommand{\threestar}{\faStar\faStarHalfO\faStarO}
+\newcommand{\fourstar}{\faStar\faStar\faStarO}
+\newcommand{\fivestar}{\faStar\faStar\faStarHalfO}
+\newcommand{\sixstar}{\faStar\faStar\faStar}
+
+\newcommand{\plotgraph}[7]{
+  \begin{center}
+  \begin{tikzpicture}
+    \draw[step=1cm,gray!50,very thin] (#2,#4) grid (#3,#5);
+    \foreach \x in {#2,...,#3} {
+      \ifnum \x=0
+      \else
+        \draw (\x,0) node[below, fill=white] {\x};
+      \fi
+    }
+    \foreach \y in {#4,...,#5} {
+      \ifnum \y=0
+      \else
+        \draw (0,\y) node[left, fill=white] {\y};
+      \fi
+    }
+    \draw[->] (#2,0) -- (#3,0) node[right] {$x$};
+    \draw[->] (0,#4) -- (0,#5) node[above] {$y$};
+    \draw[domain=#6:#7,smooth,variable=\x,blue] plot ({\x},{#1});
+  \end{tikzpicture}
+  \end{center}
+}
+
+\ExplSyntaxOn
+\newcommand{\gr}[3]{{\bubble
+  \tl_set:Nn \l_tmpa_tl {#1}
+  \int_set:Nn \l_tmpa_int { \tl_count:N \l_tmpa_tl }
+  \fp_set:Nn \l_tmpa_fp { 100 / \l_tmpa_int }
+  \int_step_inline:nnnn {1}{1}{\l_tmpa_int}{
+    \fp_set:Nn \l_tmpb_fp { (\int_eval:n {##1} - 1) * \l_tmpa_fp }
+    \textcolor{#2!\fp_eval:n {\l_tmpb_fp}!#3}{\tl_item:Nn \l_tmpa_tl {##1}}
+  }
+}}
+\ExplSyntaxOff
+
+\newcommand{\coverpage}[5]{
+  \begin{tcolorbox}[enhanced,
+                    frame hidden,
+                    interior style={left color=cyan, right color=yellow}]
+   \textit{#1}
+  \end{tcolorbox}
+  \begin{center}
+    Expedition Details:
+    \setlength{\tabcolsep}{10pt} % Adjust cell padding
+    \renewcommand{\arraystretch}{1.5} % Adjust vertical spacing
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{|l|p{4cm}|p{4cm}|}
+        \hline
+        \cellcolor{pastelGreen}{\bfseries\sffamily Subject} & \cellcolor{pastelBlue}{\bfseries\sffamily Level} & 
+        \cellcolor{pastelRed}{\bfseries\sffamily Difficulty} \\
+        \hline
+        \cellcolor{pastelYellow}{\bubble #4} & \cellcolor{\ifcase#3 \or darkgreen\or pink\or SkyBlue\or NavyBlue\fi} \ifcase#3\or
+        \textbf{\faTree\space\gr{Forest}{ForestGreen}{GreenYellow}\space\faTree}\or
+        \textbf{\faStar\space\gr{Ether}{blue}{magenta}\space\faStar}\or
+        \textbf{\faBookmark\space\gr{Canon}{WildStrawberry}{Periwinkle}\space\faBookmark}\or
+        \textbf{\faPaintBrush\space\gr{Atelier}{Goldenrod}{WildStrawberry}\space\faPaintBrush}
+        \fi & 
+        \cellcolor{pastelYellow} \ifcase#2\or
+        {\bubble Fledgling (#2/3)}\or
+        {\bubble Artisan (#2/3)}\or
+        {\bubble \small Sorcerous (#2/3)}
+        \fi \\
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{center}
+  \begin{center}
+    \includegraphics[scale=0.6]{#5}
+  \end{center}
+  \newpage
+}
+
+\makeatletter
+  \newcommand{\cthickuline}[3][0.5pt]{%
+      \def\temp@uline{\bgroup\markoverwith
+          {\textcolor{#2}{\rule[-0.5ex]{2pt}{#1}}}\ULon}%
+      \temp@uline{#3}%
+  }
+\makeatother
+
+\newcommand{\und}[2]{%
+    \begingroup
+    \ifcase#1
+        \def\ulcolor{red}% Case 0: blunder
+    \or \def\ulcolor{orange}% Case 1: mistake
+    \or \def\ulcolor{brown}% Case 2: book
+    \or \def\ulcolor{green}% Case 3: best
+    \or \def\ulcolor{green!70!black}% Case 4: excellent
+    \or \def\ulcolor{cyan}% Case 5: brilliant
+    \else \def\ulcolor{black}
+    \fi
+    \cthickuline{\ulcolor}{#2}\hspace{0.3em}\includegraphics[height=1em]{icons/32x/#1.png}%
+    \endgroup
+}
+
+% Code setup borrowed from CMU 15150 course
+
+\definecolor{background_color}{RGB}{255, 255, 255}
+\definecolor{string_color}    {RGB}{180, 156,   0}
+\definecolor{identifier_color}{RGB}{  0,   0,   0}
+\definecolor{keyword_color}   {RGB}{ 64, 100, 255}
+\definecolor{comment_color}   {RGB}{  0, 117, 110}
+\definecolor{number_color}    {RGB}{ 84,  84,  84}
+\lstdefinestyle{coricode}{
+    basicstyle=\ttfamily,
+    numberstyle=\tiny\ttfamily\color{number_color},
+    backgroundcolor=\color{background_color},
+    stringstyle=\color{string_color},
+    identifierstyle=\color{identifier_color},
+    keywordstyle=\color{keyword_color},
+    commentstyle=\color{comment_color},
+    numbers=left,
+    frame=none,
+    columns=fixed,
+    tabsize=2,
+    breaklines=true,
+    keepspaces=true,
+    showstringspaces=false,
+    captionpos=b,
+    autogobble=true,
+    mathescape=true,
+    literate={~}{{$\thicksim$}}1
+             {~=}{{$\eeq$}}1
+}
+\lstdefinelanguage{genlang}{
+    language=ML,
+    morestring=[b]",
+    morecomment=[s]{(*}{*)},
+    morekeywords={
+        bool, char, exn, int, real, string, unit, list, option,
+        EQUAL, GREATER, LESS, NONE, SOME, nil,
+        andalso, orelse, true, false, not,
+        if, then, else, case, of, as,
+        let, in, end, local, val, rec,
+        datatype, type, exception, handle,
+        fun, fn, op, raise, ref,
+        structure, struct, signature, sig, functor, where,
+        include, open, use, infix, infixr, o, print
+    }
+}
+% code inline
+\catcode`~=11
+\newcommand{\code}[2][]{{\sloppy
+\ifmmode
+    \text{\lstinline[language=genlang,style=coricode,#1]`#2`}
+\else
+    {\lstinline[language=genlang,style=coricode,#1]`#2`}%
+\fi}}
+
+% code block
+\lstnewenvironment{codeblock}[1][]{\lstset{language=genlang,style=coricode,#1}}{}
+
+\newcommand{\isin}[1]{\sin^{-1}\left(#1\right)} %inv trig
+\newcommand{\icos}[1]{\cos^{-1}\left(#1\right)}
+\newcommand{\itan}[1]{\tan^{-1}\left(#1\right)}
+\newcommand{\icsc}[1]{\csc^{-1}\left(#1\right)}
+\newcommand{\isec}[1]{\sec^{-1}\left(#1\right)}
+\newcommand{\icot}[1]{\cot^{-1}\left(#1\right)}
+\newcommand{\row}[1]{\text{Row}\left(#1\right)}
+\newcommand{\col}[1]{\text{Col}\left(#1\right)}
+\newcommand{\rank}[1]{\text{Rank}\left(#1\right)}
+\newcommand{\range}[1]{\text{Range}\left(#1\right)}
+\newcommand{\rref}{\xrightarrow{RREF}}
+\newcommand{\trace}[1]{\ensuremath{\text{Tr}\left(#1\right)}}
+\newcommand{\id}[1]{\ensuremath{\mathbf{I}_{#1}}}
+\newcommand{\tran}[1]{\ensuremath{#1^{\top}}}
+\newcommand{\inv}[1]{\ensuremath{#1^{-1}}}
+\newcommand{\innerp}[2]{\ensuremath{\left\langle #1, #2 \right\rangle}}
+\newcommand{\proj}[2]{\text{proj}_{#1}#2}
+\newcommand{\comp}[2]{\text{comp}_{#1}#2}
+\newcommand{\dis}[1]{\|#1\|}
+\newcommand{\cm}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\sm}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\PP}[2]{\mathcal{P}_{#1}({#2})}
+
+
+
+
+\endinput
